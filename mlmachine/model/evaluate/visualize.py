@@ -31,7 +31,7 @@ from sklearn.metrics import (
     completeness_score,
     classification_report,
     silhouette_samples,
-    plot_confusion_matrix,
+    ConfusionMatrixDisplay,
 )
 
 from scipy import stats
@@ -117,10 +117,10 @@ def binary_classification_panel(self, model, labels=None, title_scale=1.0, color
     )
 
     # add confusion plot to canvas
-    plot_confusion_matrix(
+    ConfusionMatrixDisplay.from_estimator(
         estimator=model,
         X=self.training_features,
-        y_true=self.training_target,
+        y=self.training_target,
         display_labels=labels if labels is not None else np.unique(self.training_target.values),
         cmap=color_map,
         values_format=".0f",
@@ -200,10 +200,10 @@ def binary_classification_panel(self, model, labels=None, title_scale=1.0, color
     )
 
     # add confusion matrix to canvas
-    plot_confusion_matrix(
+    ConfusionMatrixDisplay.from_estimator(
         estimator=model,
         X=self.validation_features,
-        y_true=self.validation_target,
+        y=self.validation_target,
         display_labels=labels if labels is not None else np.unique(self.training_target.values),
         cmap=color_map,
         values_format=".0f",
